@@ -9,11 +9,53 @@
 </head>
 <body>
   <section class="animal-memory">
-    <div class="animal-memory__container"></div>
-    <div class="animal-memory__leaderboard">
-      <div class="dificulty-selection"></div>
-      <div class="leaderboard-table"></div>
-      <div class="table-paragraph"></div>
+    <div class="container"></div>
+    <div class="leaderboard">
+      <h1>Leaderboard</h1>
+      <div class="dificulty-selection">
+        <input type="button" id="LDSE" class="button btn-lb" value="easy">
+        <input type="button" id="LDSN" class="button btn-lb" value="normal">
+        <input type="button" id="LDSH" class="button btn-lb" value="hard">
+        <input type="button" id="LDSX" class="button btn-lb" value="expert">
+      </div>
+      <div class="leaderboard-table">
+        <table>
+          <thead>
+            <tr>
+              <th class="bg-lp">position</th>
+              <th class="bg-ln">name</th>
+              <th class="bg-lt">time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bg-lpl">1.</td>
+              <td class="bg-lnl"></td>
+              <td class="bg-ltl"></td>
+            </tr>
+            <tr>
+              <td class="bg-lpl">2.</td>
+              <td class="bg-lnl"></td>
+              <td class="bg-ltl"></td>
+            </tr>
+            <tr>
+              <td class="bg-lpl">3.</td>
+              <td class="bg-lnl"></td>
+              <td class="bg-ltl"></td>
+            </tr>
+            <tr>
+              <td class="bg-lpl">4.</td>
+              <td class="bg-lnl"></td>
+              <td class="bg-ltl"></td>
+            </tr>
+            <tr>
+              <td class="bg-lpl">5.</td>
+              <td class="bg-lnl"></td>
+              <td class="bg-ltl"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
   <script type="module" src="./js/app.js"></script>

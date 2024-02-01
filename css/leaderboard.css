@@ -1,0 +1,55 @@
+.leaderboard {
+  background-color: var(--bg-color-leaderboard);
+  padding: 0.5rem;
+}
+
+.leaderboard h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard .dificulty-selection {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: var(--bg-LDS);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard .dificulty-selection .button {
+  border: none;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.leaderboard .dificulty-selection .button:hover {
+  background-color: var(--btn-hover);
+}
+
+.leaderboard .leaderboard-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard .leaderboard-table table th {
+  text-transform: capitalize;
+}
+
+.leaderboard .leaderboard-table table th:first-child,
+.leaderboard .leaderboard-table table td:first-child,
+.leaderboard .leaderboard-table table th:last-child,
+.leaderboard .leaderboard-table table td:last-child {
+  width: 20%;
+}
+
+.leaderboard .leaderboard-table table th,
+.leaderboard .leaderboard-table table td {
+  padding: 0.3rem;
+  text-align: center;
+  border: 0.1rem solid black;
+}
+

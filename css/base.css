@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap');
+
+:root {
+  --bg-color: #dfdfdf;
+  --color: black;
+  --btn-hover: rgba(0, 0, 0, 0.1);
+  --bg-color-game: lightgreen;
+  --bg-color-leaderboard: coral;
+  --bg-LDS: red;
+  --bg-LP: orange;
+  --bg-LPL: lightsalmon;
+  --bg-LN: dodgerblue;
+  --bg-LNL: lightblue;
+  --bg-LT: mediumspringgreen;
+  --bg-LTL: mediumaquamarine;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--color);
+  font-family: 'Nunito Sans', sans-serif;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.bg-lp {
+  background-color: var(--bg-LP);
+}
+
+.bg-lpl {
+  background-color: var(--bg-LPL);
+}
+
+.bg-ln {
+  background-color: var(--bg-LN);
+}
+
+.bg-lnl {
+  background-color: var(--bg-LNL);
+}
+
+.bg-lt {
+  background-color: var(--bg-LT);
+}
+
+.bg-ltl {
+  background-color: var(--bg-LTL);
+}
+
+.animal-memory {
+  display: flex;
+  flex-direction: row;
+  max-width: 90rem;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.animal-memory .container {
+  flex-basis: 70%;
+  height: 100%;
+}
+
+.animal-memory .leaderboard {
+  flex-basis: 30%;
+  height: 100%;
+}
