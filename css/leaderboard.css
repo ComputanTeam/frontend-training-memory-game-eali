@@ -8,28 +8,6 @@
   margin-bottom: 0.5rem;
 }
 
-.leaderboard .dificulty-selection {
-  display: flex;
-  justify-content: space-evenly;
-  background-color: var(--bg-LDS);
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.leaderboard .dificulty-selection .button {
-  border: none;
-  background-color: transparent;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  text-transform: capitalize;
-  cursor: pointer;
-}
-
-.leaderboard .dificulty-selection .button:hover {
-  background-color: var(--btn-hover);
-}
-
 .leaderboard .leaderboard-table table {
   width: 100%;
   border-collapse: collapse;
