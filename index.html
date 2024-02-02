@@ -9,10 +9,27 @@
 </head>
 <body>
   <section class="animal-memory">
-    <div class="container"></div>
+    <div class="container">
+      <div class="header">
+        <h1>animal memory</h1>
+        <div class="time-container">
+          <h3 class="time">0</h3>
+        </div>
+      </div>
+      <div class="input-name__container">
+        <input type="text" id="name-field" class="input-name" placeholder="Insert Name Here">
+      </div>
+      <div class="dificulty-selection bg-gds">
+        <input type="button" id="GDSE" class="button btn-lb" value="easy">
+        <input type="button" id="GDSN" class="button btn-lb" value="normal">
+        <input type="button" id="GDSH" class="button btn-lb" value="hard">
+        <input type="button" id="GDSX" class="button btn-lb" value="expert">
+      </div>
+      <div id="game-box" class="game-container"></div>
+    </div>
     <div class="leaderboard">
       <h1>Leaderboard</h1>
-      <div class="dificulty-selection">
+      <div class="dificulty-selection bg-lds">
         <input type="button" id="LDSE" class="button btn-lb" value="easy">
         <input type="button" id="LDSN" class="button btn-lb" value="normal">
         <input type="button" id="LDSH" class="button btn-lb" value="hard">

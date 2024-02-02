@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap');
 
 :root {
-  --bg-color: #dfdfdf;
+  --bg-input: #fdfdfd;
+  --color-input: #888888;
   --color: black;
   --btn-hover: rgba(0, 0, 0, 0.1);
   --bg-color-game: lightgreen;
   --bg-color-leaderboard: coral;
   --bg-LDS: red;
+  --bg-GDS: limegreen;
   --bg-LP: orange;
   --bg-LPL: lightsalmon;
   --bg-LN: dodgerblue;
@@ -21,7 +23,13 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background: linear-gradient(
+    to right,
+    var(--bg-color-game) 0%,
+    var(--bg-color-game) 50%,
+    var(--bg-color-leaderboard) 50%,
+    var(--bg-color-leaderboard) 100%
+  );
   color: var(--color);
   font-family: 'Nunito Sans', sans-serif;
   width: 100vw;
@@ -54,6 +62,18 @@ body {
   background-color: var(--bg-LTL);
 }
 
+.bg-lds {
+  background-color: var(--bg-LDS);
+}
+
+.bg-gds {
+  background-color: var(--bg-GDS);
+}
+
+.bg-hover {
+  background-color: var(--btn-hover) !important;
+}
+
 .animal-memory {
   display: flex;
   flex-direction: row;
@@ -70,4 +90,26 @@ body {
 .animal-memory .leaderboard {
   flex-basis: 30%;
   height: 100%;
+}
+
+.dificulty-selection {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dificulty-selection .button {
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.dificulty-selection .button:hover {
+  background-color: var(--btn-hover);
 }
