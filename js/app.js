@@ -1,19 +1,33 @@
 
 let previousSelectedLB = null;
 let previousSelectedGame = null;
+let userName = null;
 const buttonsGame = ['GDSE', 'GDSN', 'GDSH', 'GDSX'];
 const buttonsLB = ['LDSE', 'LDSN', 'LDSH', 'LDSX'];
 
-const difficultySelection = (event) => {
-  event.target.classList.add('bg-hover');
-  if (previousSelectedLB !== null && previousSelectedLB !== event.target) {
-    previousSelectedLB.classList.remove('bg-hover');
+const validateName = () => {
+  if (!userName) {
+    alert("Please, Enter your name.")
   }
-  previousSelectedLB = event.target;
-}
+};
 
-document.querySelector('#LDSE').addEventListener('click', difficultySelection);
-document.querySelector('#LDSN').addEventListener('click', difficultySelection);
-document.querySelector('#LDSH').addEventListener('click', difficultySelection);
-document.querySelector('#LDSX').addEventListener('click', difficultySelection);
+document.querySelector('#name-field').addEventListener("change", (event) => {
+  userName = event.target.value;
+});
 
+const onDifficultySelection = (buttons, previousSelected) => {
+  buttons.forEach((button) => {
+    document.querySelector(`#${button}`).addEventListener('click', (event) => {
+      event.target.classList.add('bg-hover');
+      if (previousSelected !== null && previousSelected !== event.target) {
+        previousSelected.classList.remove('bg-hover');
+      }
+      previousSelected = event.target;
+      validateName();
+      console.log(userName);
+    });
+  });
+};
+
+onDifficultySelection(buttonsGame, previousSelectedGame);
+onDifficultySelection(buttonsLB, previousSelectedLB);
