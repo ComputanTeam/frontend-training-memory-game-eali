@@ -25,7 +25,7 @@
   background-color: var(--bg-input);
   color: var(--color-input);
   margin: 0 3rem;
-  padding: 0.3rem;
+  padding: 0.3rem 2rem;
   border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -33,13 +33,14 @@
 .container .input-name__container {
   display: flex;
   flex-direction: row;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0.5rem;
 }
 
 .container .input-name__container .input-name {
   flex-basis: 15rem;
   background-color: var(--bg-input);
   font-size: 1rem;
+  font-weight: 600;
   color: var(--color-input);
   padding: 0.6rem;
   border-radius: 0.5rem;
@@ -48,3 +49,13 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+@media (max-width: 48rem) {
+  .container .input-name__container {
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .header .time-container .time {
+    margin: 0;
+  }
+}

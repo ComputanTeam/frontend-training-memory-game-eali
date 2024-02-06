@@ -13,8 +13,8 @@
   --bg-LPL: lightsalmon;
   --bg-LN: dodgerblue;
   --bg-LNL: lightblue;
-  --bg-LT: mediumspringgreen;
-  --bg-LTL: mediumaquamarine;
+  --bg-LT: mediumaquamarine;
+  --bg-LTL: mediumspringgreen;
 }
 
 * {
@@ -34,8 +34,11 @@ body {
   font-family: 'Nunito Sans', sans-serif;
   width: 100vw;
   height: 100vh;
-  max-width: 100%;
   overflow: hidden;
+}
+
+input {
+  font-family: inherit;
 }
 
 .bg-lp {
@@ -78,6 +81,7 @@ body {
   display: flex;
   flex-direction: row;
   max-width: 90rem;
+  min-width: 23.43rem;
   margin: 0 auto;
   height: 100%;
 }
@@ -103,6 +107,7 @@ body {
 .dificulty-selection .button {
   border: none;
   background-color: transparent;
+  font-size: 1rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -112,4 +117,13 @@ body {
 
 .dificulty-selection .button:hover {
   background-color: var(--btn-hover);
+}
+
+@media (max-width: 48rem) {
+  body {
+    background: none;
+  }
+  .animal-memory {
+    flex-direction: column;
+  }
 }
