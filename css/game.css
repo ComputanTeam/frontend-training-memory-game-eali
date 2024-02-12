@@ -6,6 +6,7 @@
 .container .header {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
   margin-bottom: 1rem;
 }
 
@@ -47,6 +48,57 @@
   border: none;
   outline: none;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.game-container h2,
+.game-container p {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.game-container .game-grid {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  gap: var(--cardgap);
+  grid-template-columns: repeat(var(--dimension), var(--cardlength));
+  grid-template-rows: repeat(var(--dimension), var(--cardlength));
+}
+
+.game-grid .card {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+}
+
+.card .front-image,
+.card .back-image {
+  width: 100%;
+  height: 100%;
+}
+
+.card .front,
+.card .back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+  background-color: rgba(255, 192, 203, 0.8);
+}
+
+.card .front {
+  transform: rotateY(180deg);
 }
 
 @media (max-width: 48rem) {
