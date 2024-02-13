@@ -19,26 +19,12 @@
       <div class="input-name__container">
         <input type="text" id="name-field" class="input-name" placeholder="Insert Name Here">
       </div>
-      <div class="dificulty-selection bg-gds">
-        <input type="button" id="GDSE" class="button btn-lb" value="easy">
-        <input type="button" id="GDSN" class="button btn-lb" value="normal">
-        <input type="button" id="GDSH" class="button btn-lb" value="hard">
-        <input type="button" id="GDSX" class="button btn-lb" value="expert">
-      </div>
-      <div id="game-box" class="game-container">
-        <h2>Welcome to Animal Memory, a memory game for your memory :D</h2>
-        <p>You might be asking yourself how to play this game. Don't worry, that is why this paragraph is here.</p>
-        <p>Please, insert your name so you can start the game. Once you start, the timer will start ticking.</p>
-        <p>When you are done, it will stop the time position and the username will be printed to the table. ;)</p>
-      </div>
+      <div class="dificulty-selection bg-gds" id="GDS"></div>
+      <div id="game-box" class="game-container"></div>
     </div>
     <div class="leaderboard">
       <h1>Leaderboard</h1>
-      <div class="dificulty-selection bg-lds">
-        <input type="button" id="LDSE" class="button btn-lb" value="easy">
-        <input type="button" id="LDSN" class="button btn-lb" value="normal">
-        <input type="button" id="LDSH" class="button btn-lb" value="hard">
-        <input type="button" id="LDSX" class="button btn-lb" value="expert">
+      <div class="dificulty-selection bg-lds" id="LDS">
       </div>
       <div class="leaderboard-table">
         <table>
@@ -52,28 +38,28 @@
           <tbody>
             <tr>
               <td class="bg-lpl">1.</td>
-              <td class="bg-lnl"></td>
-              <td class="bg-ltl"></td>
+              <td class="bg-lnl" id="td-name-1"></td>
+              <td class="bg-ltl" id="td-time-1"></td>
             </tr>
             <tr>
               <td class="bg-lpl">2.</td>
-              <td class="bg-lnl"></td>
-              <td class="bg-ltl"></td>
+              <td class="bg-lnl" id="td-name-2"></td>
+              <td class="bg-ltl" id="td-time-2"></td>
             </tr>
             <tr>
               <td class="bg-lpl">3.</td>
-              <td class="bg-lnl"></td>
-              <td class="bg-ltl"></td>
+              <td class="bg-lnl" id="td-name-3"></td>
+              <td class="bg-ltl" id="td-time-3"></td>
             </tr>
             <tr>
               <td class="bg-lpl">4.</td>
-              <td class="bg-lnl"></td>
-              <td class="bg-ltl"></td>
+              <td class="bg-lnl" id="td-name-4"></td>
+              <td class="bg-ltl" id="td-time-4"></td>
             </tr>
             <tr>
               <td class="bg-lpl">5.</td>
-              <td class="bg-lnl"></td>
-              <td class="bg-ltl"></td>
+              <td class="bg-lnl" id="td-name-5"></td>
+              <td class="bg-ltl" id="td-time-5"></td>
             </tr>
           </tbody>
         </table>
