@@ -22,10 +22,11 @@
 }
 
 .header .time-container .time {
+  max-width: 3rem;
   text-align: center;
   background-color: var(--bg-input);
   color: var(--color-input);
-  margin: 0 3rem;
+  margin: 0 auto;
   padding: 0.3rem 2rem;
   border-radius: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -101,7 +102,7 @@
   transform: rotateY(180deg);
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 52rem) {
   .container .input-name__container {
     justify-content: center;
     margin-left: 0;

@@ -1,51 +1,15 @@
 
-let previousSelectedLB = null;
-let previousSelectedGame = null;
-let userName = null;
-const buttonsGame = ['GDSE', 'GDSN', 'GDSH', 'GDSX'];
-const buttonsLB = ['LDSE', 'LDSN', 'LDSH', 'LDSX'];
-let time = 0, score = 0;
-let timerInterval, firstCard, secondCard, cardPairs;
-let lockedBoard = false;
-
 const validateName = () => {
   if (!userName) {
     alert("Please, Enter your name.");
-    resetBoard();
+    resetGame();
     return false;
   }
   return true;
 };
 
-document.querySelector('#name-field').addEventListener("change", (event) => {
-  userName = event.target.value;
-});
-
-buttonsLB.forEach((button) => {
-  document.querySelector(`#${button}`).addEventListener('click', (event) => {
-    event.target.classList.add('bg-hover');
-    if (previousSelectedLB !== null && previousSelectedLB !== event.target) {
-      previousSelectedLB.classList.remove('bg-hover');
-    }
-    previousSelectedLB = event.target;
-  });
-});
-
-buttonsGame.forEach((button) => {
-  document.querySelector(`#${button}`).addEventListener('click', (event) => {
-    event.target.classList.add('bg-hover');
-    if (previousSelectedGame !== null && previousSelectedGame !== event.target) {
-      previousSelectedGame.classList.remove('bg-hover');
-    }
-    previousSelectedGame = event.target;
-    if (validateName()) {
-      startGame(event.target.value);
-    }
-  });
-});
-
-const startGame = (level) => {
-  const gameArray = loadArray(level);
+const startGame = () => {
+  const gameArray = loadArray();
   const shuffledArray = shuffleArray(gameArray);
   const gameCards = generateCards(shuffledArray);
   startTimer();
@@ -58,21 +22,12 @@ const startTimer = () => {
   time = 0;
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
-    document.querySelector('#timer').innerHTML = time;
+    timeElement.textContent = time;
     time += 1;
   }, 1000);
 };
 
-const loadArray = (level) => {
-  if (level === "easy") {
-    cardPairs = 8
-  } else if (level === "normal") {
-    cardPairs = 18;
-  } else if (level === "hard") {
-    cardPairs = 32;
-  } else {
-    cardPairs = 50;
-  }
+const loadArray = () => {
   const array = [];
   let imageIndex;
   for (let index = 0; index < cardPairs; index++) {
@@ -87,6 +42,27 @@ const loadArray = (level) => {
     });
   }
   return array;
+};
+
+const setGridValues = (level) => {
+  gameLevel = level;
+  if (level === "easy") {
+    cardPairs = 8
+    cardLength = '5.6rem';
+    cardGap = '1rem';
+  } else if (level === "normal") {
+    cardPairs = 18;
+    cardLength = '4.3rem';
+    cardGap = '0.75rem';
+  } else if (level === "hard") {
+    cardPairs = 32;
+    cardLength = '3rem';
+    cardGap = '0.5rem';
+  } else {
+    cardPairs = 50;
+    cardLength = '2.8rem';
+    cardGap = '0.25rem';
+  }
 };
 
 const shuffleArray = (array) => {
@@ -105,18 +81,7 @@ const generateCards = (array) => {
   const gridContainer = document.createElement("div");
   gridContainer.classList.add('game-grid');
   const dimension = Math.floor(Math.sqrt(cardPairs*2));
-  let cardLength = '90px';
-  let cardGap = '16px';
-  if (dimension === 10) {
-    cardLength = '45px';
-    cardGap = '4px';
-  } else if (dimension === 8) {
-    cardLength = '50px';
-    cardGap = '8px';
-  } else if (dimension === 6) {
-    cardLength = '70px';
-    cardGap = '12px';
-  }
+
   gridContainer.style.setProperty('--dimension', dimension);
   gridContainer.style.setProperty('--cardlength', cardLength);
   gridContainer.style.setProperty('--cardgap', cardGap);
@@ -157,7 +122,7 @@ const disableCards = () => {
   secondCard.removeEventListener("click", handleCardFlip);
   score++;
   resetBoard();
-  checkGameComplete();
+  setTimeout(checkGameComplete, 550);
 };
 
 const unflipCards = () => {
@@ -172,14 +137,130 @@ const resetBoard = () => {
   firstCard = null;
   secondCard = null;
   lockedBoard = false;
+};
+
+const resetGame = () => {
+  resetBoard();
   previousSelectedGame.classList.remove('bg-hover');
   previousSelectedGame = null;
+  clearInterval(timerInterval);
+  loadInstructions();
+  timeElement.textContent = '0';
 };
 
 const checkGameComplete = () => {
-  console.log(score, cardPairs);
   if (score === cardPairs) {
-    clearInterval(timerInterval);
-    alert("Game Complete!!!");
+    alert(`Game Complete - ${time}`);
+    resetGame();
+    saveScore();
+    loadScore(previousSelectedLB.target.value);
   }
 };
+
+const loadInstructions = () => {
+  document.querySelector('#game-box').innerHTML = `
+    <h2>Welcome to Animal Memory, a memory game for your memory :D</h2>
+    <p>You might be asking yourself how to play this game. Don't worry, that is why this paragraph is here.</p>
+    <p>Please, insert your name so you can start the game. Once you start, the timer will start ticking.</p>
+    <p>When you are done, it will stop the time position and the username will be printed to the table. ;)</p>
+    `;
+};
+
+const saveScore = () => {
+  if (!userName) {
+    userName = prompt("Enter your name: ");
+  }
+  const data = {
+    [userName]: time,
+  }
+  const storedData = localStorage.getItem(gameLevel);
+  if (storedData) {
+    const JsonData = JSON.parse(storedData);
+    JsonData.push(data);
+    JsonData.sort((a, b) => {
+      let valueA = parseInt(Object.values(a)[0]);
+      let valueB = parseInt(Object.values(b)[0]);
+      return valueA - valueB;
+    });
+    JsonData.slice(0, 5);
+    localStorage.setItem(gameLevel, JSON.stringify(JsonData));
+  } else {
+    localStorage.setItem(gameLevel, JSON.stringify([data]));
+  }
+};
+
+const loadScore = (level) => {
+  clearTable();
+  const data = localStorage.getItem(level);
+  if (data) {
+    const JsonData = JSON.parse(data);
+    JsonData.forEach((score, index) => {
+      const name = Object.keys(score)[0];
+      const time = Object.values(score)[0];
+      const nameBox = document.querySelector(`#td-name-${index + 1}`);
+      const timeBox = document.querySelector(`#td-time-${index + 1}`);
+      nameBox.textContent = name;
+      timeBox.textContent = time;
+    });    
+  }
+};
+
+const clearTable = () => {
+  for (let index = 1; index <= 5; index++) {
+    document.querySelector(`#td-name-${index}`).textContent = "";
+    document.querySelector(`#td-time-${index}`).textContent = "";
+  }
+};
+
+
+// ######################################## START #######################################
+
+const difficultyOptions = ['easy', 'normal', 'hard', 'expert'];
+let timerInterval, firstCard, secondCard, cardPairs, cardGap, cardLength, gameLevel;
+let previousSelectedLB = null;
+let previousSelectedGame = null;
+let userName = null;
+let time = 0, score = 0;
+let lockedBoard = false;
+
+loadInstructions();
+const timeElement = document.querySelector('#timer');
+
+document.querySelector('#name-field').addEventListener("change", (event) => {
+  userName = event.target.value;
+});
+
+difficultyOptions.forEach((option) => {
+  const button = document.createElement("input");
+  button.setAttribute('type', 'button');
+  button.setAttribute('value', option);
+  button.classList.add('button');
+  button.addEventListener("click", (event) => {
+    event.target.classList.add('bg-hover');
+    if (previousSelectedGame !== null && previousSelectedGame !== event.target) {
+      previousSelectedGame.classList.remove('bg-hover');
+    }
+    previousSelectedGame = event.target;
+    if (validateName()) {
+      setGridValues(event.target.value);
+      startGame();
+    }
+  });
+  document.querySelector('#GDS').appendChild(button);
+});
+
+difficultyOptions.forEach((option) => {
+  const button = document.createElement("input");
+  button.setAttribute('type', 'button');
+  button.setAttribute('value', option);
+  button.classList.add('button');
+  button.addEventListener("click", (event) => {
+    event.target.classList.add('bg-hover');
+    if (previousSelectedLB !== null && previousSelectedLB !== event.target) {
+      previousSelectedLB.classList.remove('bg-hover');
+    }
+    previousSelectedLB = event.target;
+    loadScore(event.target.value);
+  });
+  document.querySelector('#LDS').appendChild(button);
+});
