@@ -32,9 +32,8 @@ body {
   );
   color: var(--color);
   font-family: 'Nunito Sans', sans-serif;
-  width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 input {
@@ -81,7 +80,7 @@ input {
   display: flex;
   flex-direction: row;
   max-width: 90rem;
-  min-width: 23.43rem;
+  min-width: 31rem;
   margin: 0 auto;
   height: 100%;
 }
@@ -119,7 +118,7 @@ input {
   background-color: var(--btn-hover);
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 52rem) {
   body {
     background: none;
   }
