@@ -80,7 +80,7 @@ input {
   display: flex;
   flex-direction: row;
   max-width: 90rem;
-  min-width: 31rem;
+  min-width: 23rem;
   margin: 0 auto;
   height: 100%;
 }
@@ -121,8 +121,18 @@ input {
 @media (max-width: 52rem) {
   body {
     background: none;
+    height: auto;
+    overflow-y: auto;
   }
   .animal-memory {
-    flex-direction: column;
+    display: block;
+  }
+
+  .dificulty-selection {
+    flex-wrap: wrap;
+  }
+
+  .dificulty-selection .button {
+    flex-basis: 40%;
   }
 }
