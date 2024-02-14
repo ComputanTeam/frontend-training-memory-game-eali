@@ -1,4 +1,15 @@
+// GLOBAL VARIABLES
+const difficultyOptions = ['easy', 'normal', 'hard', 'expert'];
+let timerInterval, firstCard, secondCard, cardPairs, cardGap, cardLength, gameLevel;
+let previousSelectedLB = null;
+let previousSelectedGame = null;
+let userName = null;
+let time = 0, score = 0;
+let lockedBoard = false;
+const timeElement = document.querySelector('#timer');
 
+
+// UTILITY FUNCTIONS
 const validateName = () => {
   if (!userName) {
     alert("Please, Enter your name.");
@@ -153,7 +164,7 @@ const checkGameComplete = () => {
     alert(`Game Complete - ${time}`);
     resetGame();
     saveScore();
-    loadScore(previousSelectedLB.target.value);
+    loadScore(previousSelectedLB.value);
   }
 };
 
@@ -212,55 +223,51 @@ const clearTable = () => {
   }
 };
 
+const onDifficultySelectionGame = (event) => {
+  event.target.classList.add('bg-hover');
+  if (previousSelectedGame !== null && previousSelectedGame !== event.target) {
+    previousSelectedGame.classList.remove('bg-hover');
+  }
+  previousSelectedGame = event.target;
+  if (validateName()) {
+    setGridValues(event.target.value);
+    startGame();
+  }
+};
 
-// ######################################## START #######################################
+const onDifficultySelectionLB = (event) => {
+  event.target.classList.add('bg-hover');
+  if (previousSelectedLB !== null && previousSelectedLB !== event.target) {
+    previousSelectedLB.classList.remove('bg-hover');
+  }
+  previousSelectedLB = event.target;
+  loadScore(event.target.value);
+}
 
-const difficultyOptions = ['easy', 'normal', 'hard', 'expert'];
-let timerInterval, firstCard, secondCard, cardPairs, cardGap, cardLength, gameLevel;
-let previousSelectedLB = null;
-let previousSelectedGame = null;
-let userName = null;
-let time = 0, score = 0;
-let lockedBoard = false;
+const getDFButton = (option) => {
+  const button = document.createElement("input");
+  button.setAttribute('type', 'button');
+  button.setAttribute('value', option);
+  button.classList.add('button');
+  return button;
+};
+
+const setDifficultyButtons = (selector, callback) => {
+  difficultyOptions.forEach((option) => {
+    const button = getDFButton(option);
+    button.addEventListener("click", callback);
+    document.querySelector(selector).appendChild(button);
+  });
+};
+
+
+// ######################################## START GAME #######################################
 
 loadInstructions();
-const timeElement = document.querySelector('#timer');
 
 document.querySelector('#name-field').addEventListener("change", (event) => {
   userName = event.target.value;
 });
 
-difficultyOptions.forEach((option) => {
-  const button = document.createElement("input");
-  button.setAttribute('type', 'button');
-  button.setAttribute('value', option);
-  button.classList.add('button');
-  button.addEventListener("click", (event) => {
-    event.target.classList.add('bg-hover');
-    if (previousSelectedGame !== null && previousSelectedGame !== event.target) {
-      previousSelectedGame.classList.remove('bg-hover');
-    }
-    previousSelectedGame = event.target;
-    if (validateName()) {
-      setGridValues(event.target.value);
-      startGame();
-    }
-  });
-  document.querySelector('#GDS').appendChild(button);
-});
-
-difficultyOptions.forEach((option) => {
-  const button = document.createElement("input");
-  button.setAttribute('type', 'button');
-  button.setAttribute('value', option);
-  button.classList.add('button');
-  button.addEventListener("click", (event) => {
-    event.target.classList.add('bg-hover');
-    if (previousSelectedLB !== null && previousSelectedLB !== event.target) {
-      previousSelectedLB.classList.remove('bg-hover');
-    }
-    previousSelectedLB = event.target;
-    loadScore(event.target.value);
-  });
-  document.querySelector('#LDS').appendChild(button);
-});
+setDifficultyButtons('#GDS', onDifficultySelectionGame);
+setDifficultyButtons('#LDS', onDifficultySelectionLB);
