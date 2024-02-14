@@ -18,6 +18,8 @@ Assets needed for the project can be found in the `assets` directory.
 
 Screenshots of the project can be found in the `screenshots` directory or down bellow [Go to Section](#screenshots).
 
+Game Link: https://computanteam.github.io/frontend-training-memory-game-eali/
+
 ---
 
 ## INSTRUCTIONS
