@@ -20,6 +20,8 @@ const validateName = () => {
 };
 
 const startGame = () => {
+  score = 0;
+  lockedBoard = false;
   const gameArray = loadArray();
   const shuffledArray = shuffleArray(gameArray);
   const gameCards = generateCards(shuffledArray);
@@ -154,6 +156,7 @@ const resetGame = () => {
   resetBoard();
   previousSelectedGame.classList.remove('bg-hover');
   previousSelectedGame = null;
+  score = 0;
   clearInterval(timerInterval);
   loadInstructions();
   timeElement.textContent = '0';
@@ -161,8 +164,12 @@ const resetGame = () => {
 
 const checkGameComplete = () => {
   if (score === cardPairs) {
-    alert(`Game Complete - ${time}`);
-    resetGame();
+    const reponse = confirm(`Congratulations, You complete the game in ${time} seconds.\n Would you like to reset the game?`);
+    if (reponse) {
+      resetGame();
+    } else {
+      clearInterval(timerInterval);
+    }
     saveScore();
     loadScore(previousSelectedLB.value);
   }
