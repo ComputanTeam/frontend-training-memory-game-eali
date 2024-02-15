@@ -44,11 +44,11 @@ const loadArray = () => {
   for (let index = 0; index < cardPairs; index++) {
     imageIndex = index + 1;
     array.push({
-      image: `../assets/animals/${imageIndex}.png`,
+      image: `./assets/animals/${imageIndex}.png`,
       number: imageIndex,
     });
     array.push({
-      image: `../assets/animals/${imageIndex}.png`,
+      image: `./assets/animals/${imageIndex}.png`,
       number: imageIndex,
     });
   }
@@ -105,7 +105,7 @@ const generateCards = (array) => {
         <img class='front-image' src=${card.image}>
       </figure>
       <figure class='back'>
-        <img class='back-image' src='../assets/img/back.png'>
+        <img class='back-image' src='./assets/img/back.png'>
       </figure>
     `;
     cardElement.addEventListener("click", handleCardFlip);
