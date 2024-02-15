@@ -6,6 +6,7 @@ let previousSelectedGame = null;
 let userName = null;
 let time = 0, score = 0;
 let lockedBoard = false;
+let alreadyAdded = [];
 const timeElement = document.querySelector('#timer');
 
 
@@ -25,7 +26,6 @@ const startGame = () => {
   const gameArray = loadArray();
   const shuffledArray = shuffleArray(gameArray);
   const gameCards = generateCards(shuffledArray);
-  startTimer();
   const gameBox = document.querySelector('#game-box');
   gameBox.innerHTML = '';
   gameBox.appendChild(gameCards);
@@ -34,17 +34,28 @@ const startGame = () => {
 const startTimer = () => {
   time = 0;
   clearInterval(timerInterval);
+  timerInterval = undefined;
   timerInterval = setInterval(() => {
-    timeElement.textContent = time;
     time += 1;
+    timeElement.textContent = time;
   }, 1000);
+};
+
+const getRandomNumber = () => {
+  while (true) {
+    const randomNumber = Math.floor((Math.random() * 50) + 1);
+    if (!alreadyAdded.includes(randomNumber)) {
+      alreadyAdded.push(randomNumber);
+     return randomNumber; 
+    }
+  }
 };
 
 const loadArray = () => {
   const array = [];
-  let imageIndex;
-  for (let index = 0; index < cardPairs; index++) {
-    imageIndex = index + 1;
+  alreadyAdded = [];
+  for (let index = 1; index < cardPairs + 1; index++) {
+    const imageIndex = gameLevel === 'hard' ? index : getRandomNumber();
     array.push({
       image: `./assets/animals/${imageIndex}.png`,
       number: imageIndex,
@@ -121,6 +132,9 @@ function handleCardFlip() {
   this.classList.add('flipped');
   if (!firstCard) {
     firstCard = this;
+    if (!timerInterval) {
+      startTimer();
+    }
     return;
   }
   if (this ===  firstCard) return;
@@ -135,7 +149,7 @@ const disableCards = () => {
   secondCard.removeEventListener("click", handleCardFlip);
   score++;
   resetBoard();
-  setTimeout(checkGameComplete, 550);
+  setTimeout(checkGameComplete, 320);
 };
 
 const unflipCards = () => {
@@ -158,14 +172,15 @@ const resetGame = () => {
   previousSelectedGame = null;
   score = 0;
   clearInterval(timerInterval);
+  timerInterval = undefined;
   loadInstructions();
   timeElement.textContent = '0';
 };
 
 const checkGameComplete = () => {
   if (score === cardPairs) {
-    const reponse = confirm(`Congratulations, You complete the game in ${time} seconds.\n Would you like to reset the game?`);
-    if (reponse) {
+    const response = confirm(`Congratulations, You complete the game in ${time} seconds.\n Would you like to reset the game?`);
+    if (response) {
       resetGame();
     } else {
       clearInterval(timerInterval);
@@ -187,6 +202,8 @@ const loadInstructions = () => {
 const saveScore = () => {
   if (!userName) {
     userName = prompt("Enter your name: ");
+    document.querySelector('#name-field').value = userName;
+    userName = userName ?? "User";
   }
   const data = {
     [userName]: time,
@@ -196,11 +213,11 @@ const saveScore = () => {
     const JsonData = JSON.parse(storedData);
     JsonData.push(data);
     JsonData.sort((a, b) => {
-      let valueA = parseInt(Object.values(a)[0]);
-      let valueB = parseInt(Object.values(b)[0]);
-      return valueA - valueB;
-    });
-    JsonData.slice(0, 5);
+      return parseInt(Object.values(a)[0]) - parseInt(Object.values(b)[0]);
+    })
+    if (JsonData.length > 5) {
+      JsonData.pop();
+    }
     localStorage.setItem(gameLevel, JSON.stringify(JsonData));
   } else {
     localStorage.setItem(gameLevel, JSON.stringify([data]));
@@ -239,6 +256,13 @@ const onDifficultySelectionGame = (event) => {
   if (validateName()) {
     setGridValues(event.target.value);
     startGame();
+    if (!previousSelectedLB) {
+      const DSLB = document.querySelector('#LDS');
+      const input = DSLB.querySelector(`input[value=${event.target.value}]`);
+      input.classList.add('bg-hover');
+      previousSelectedLB = input;
+      loadScore(event.target.value);
+    }
   }
 };
 
