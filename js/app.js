@@ -15,6 +15,7 @@ const validateName = () => {
   if (!userName) {
     alert("Please, Enter your name.");
     resetGame();
+    resetDiffiultySelector();
     return false;
   }
   return true;
@@ -46,7 +47,7 @@ const getRandomNumber = () => {
     const randomNumber = Math.floor((Math.random() * 50) + 1);
     if (!alreadyAdded.includes(randomNumber)) {
       alreadyAdded.push(randomNumber);
-     return randomNumber; 
+      return randomNumber;
     }
   }
 };
@@ -104,7 +105,7 @@ const shuffleArray = (array) => {
 const generateCards = (array) => {
   const gridContainer = document.createElement("div");
   gridContainer.classList.add('game-grid');
-  const dimension = Math.floor(Math.sqrt(cardPairs*2));
+  const dimension = Math.floor(Math.sqrt(cardPairs * 2));
 
   gridContainer.style.setProperty('--dimension', dimension);
   gridContainer.style.setProperty('--cardlength', cardLength);
@@ -137,7 +138,7 @@ function handleCardFlip() {
     }
     return;
   }
-  if (this ===  firstCard) return;
+  if (this === firstCard) return;
   secondCard = this;
   lockedBoard = true;
 
@@ -153,10 +154,11 @@ const disableCards = () => {
 };
 
 const unflipCards = () => {
-  setTimeout(() => {
+  const timeout = setTimeout(() => {
     firstCard.classList.remove('flipped');
     secondCard.classList.remove('flipped');
     resetBoard();
+    clearTimeout(timeout);
   }, 1000);
 };
 
@@ -166,37 +168,31 @@ const resetBoard = () => {
   lockedBoard = false;
 };
 
-const resetGame = () => {
-  resetBoard();
+const resetDiffiultySelector = () => {
   previousSelectedGame.classList.remove('bg-hover');
   previousSelectedGame = null;
+};
+
+const resetGame = () => {
+  resetBoard();
   score = 0;
   clearInterval(timerInterval);
   timerInterval = undefined;
-  loadInstructions();
   timeElement.textContent = '0';
 };
 
 const checkGameComplete = () => {
   if (score === cardPairs) {
-    const response = confirm(`Congratulations, You complete the game in ${time} seconds.\n Would you like to reset the game?`);
+    saveScore();
+    loadScore(previousSelectedLB.value);
+    const response = confirm(`Congratulations, You complete the game in ${time} seconds.\n Would you like to restart the game?`);
     if (response) {
       resetGame();
+      startGame();
     } else {
       clearInterval(timerInterval);
     }
-    saveScore();
-    loadScore(previousSelectedLB.value);
   }
-};
-
-const loadInstructions = () => {
-  document.querySelector('#game-box').innerHTML = `
-    <h2>Welcome to Animal Memory, a memory game for your memory :D</h2>
-    <p>You might be asking yourself how to play this game. Don't worry, that is why this paragraph is here.</p>
-    <p>Please, insert your name so you can start the game. Once you start, the timer will start ticking.</p>
-    <p>When you are done, it will stop the time position and the username will be printed to the table. ;)</p>
-    `;
 };
 
 const saveScore = () => {
@@ -236,7 +232,7 @@ const loadScore = (level) => {
       const timeBox = document.querySelector(`#td-time-${index + 1}`);
       nameBox.textContent = name;
       timeBox.textContent = time;
-    });    
+    });
   }
 };
 
@@ -293,8 +289,6 @@ const setDifficultyButtons = (selector, callback) => {
 
 
 // ######################################## START GAME #######################################
-
-loadInstructions();
 
 document.querySelector('#name-field').addEventListener("change", (event) => {
   userName = event.target.value;

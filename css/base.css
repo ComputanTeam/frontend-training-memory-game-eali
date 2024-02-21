@@ -23,13 +23,11 @@
 }
 
 body {
-  background: linear-gradient(
-    to right,
-    var(--bg-color-game) 0%,
-    var(--bg-color-game) 50%,
-    var(--bg-color-leaderboard) 50%,
-    var(--bg-color-leaderboard) 100%
-  );
+  background: linear-gradient(to right,
+      var(--bg-color-game) 0%,
+      var(--bg-color-game) 50%,
+      var(--bg-color-leaderboard) 50%,
+      var(--bg-color-leaderboard) 100%);
   color: var(--color);
   font-family: 'Nunito Sans', sans-serif;
   height: 100vh;
@@ -124,6 +122,7 @@ input {
     height: auto;
     overflow-y: auto;
   }
+
   .animal-memory {
     display: block;
   }
