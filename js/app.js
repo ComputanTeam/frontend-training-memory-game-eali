@@ -182,9 +182,9 @@ const resetGame = () => {
 };
 
 const checkGameComplete = () => {
-  saveScore();
-  loadScore(previousSelectedLB.value);
   if (score === cardPairs) {
+    saveScore();
+    loadScore(previousSelectedLB.value);
     const response = confirm(`Congratulations, You complete the game in ${time} seconds.\n Would you like to restart the game?`);
     if (response) {
       resetGame();
