@@ -47,7 +47,7 @@ const getRandomNumber = () => {
     const randomNumber = Math.floor((Math.random() * 50) + 1);
     if (!alreadyAdded.includes(randomNumber)) {
       alreadyAdded.push(randomNumber);
-     return randomNumber; 
+      return randomNumber;
     }
   }
 };
@@ -105,7 +105,7 @@ const shuffleArray = (array) => {
 const generateCards = (array) => {
   const gridContainer = document.createElement("div");
   gridContainer.classList.add('game-grid');
-  const dimension = Math.floor(Math.sqrt(cardPairs*2));
+  const dimension = Math.floor(Math.sqrt(cardPairs * 2));
 
   gridContainer.style.setProperty('--dimension', dimension);
   gridContainer.style.setProperty('--cardlength', cardLength);
@@ -138,7 +138,7 @@ function handleCardFlip() {
     }
     return;
   }
-  if (this ===  firstCard) return;
+  if (this === firstCard) return;
   secondCard = this;
   lockedBoard = true;
 
@@ -154,7 +154,7 @@ const disableCards = () => {
 };
 
 const unflipCards = () => {
-  const timeout =  setTimeout(() => {
+  const timeout = setTimeout(() => {
     firstCard.classList.remove('flipped');
     secondCard.classList.remove('flipped');
     resetBoard();
@@ -232,7 +232,7 @@ const loadScore = (level) => {
       const timeBox = document.querySelector(`#td-time-${index + 1}`);
       nameBox.textContent = name;
       timeBox.textContent = time;
-    });    
+    });
   }
 };
 
